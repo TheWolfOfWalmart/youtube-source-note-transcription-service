@@ -19,7 +19,7 @@ I found my Inbox accumulating too many YouTube links—technical lectures, tutor
 **Reading is faster than watching.** 
 I realized that processing a high-fidelity transcript allows for rapid scanning, searching, and extraction of concepts, significantly increasing the velocity of information entering the Zettelkasten. 
 
-![[Pasted image 20260113082925.png|500]]
+![Insight](docs/Pasted%20image%2020260113082925.png)
 
 Beyond efficiency, managing my PKM in this way essentially turns me into a **human embedding model** for my own knowledge. By manually extracting and linking atomic notes, I am pre-processing information so that its semantic value can be utilized directly by a terminal-based AI during conversational reasoning and project management, rather than being probabilistically determined in vector-similarity like a traditional RAG pipeline.
 
