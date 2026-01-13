@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  mcp-obsidian:
+    build: ./obsidian
+    container_name: mcp-obsidian
+    environment:
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - OBSIDIAN_USE_HTTP=true
+      - OBSIDIAN_HOST=host.docker.internal
+    volumes:
+      - obsidian_vaults:/vaults
+    networks:
+      - caddy
+    labels:
+      caddy: obsidian-mcp.your-domain.com
+      caddy.reverse_proxy: '{{upstreams 8080}}'
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  
+  mcp-transcriber:
+    build: ./transcriber
+    container_name: mcp-transcriber
+    environment:
+      - LD_LIBRARY_PATH=/usr/local/lib/python3.11/dist-packages/nvidia/cudnn/lib:/usr/local/lib/python3.11/dist-packages/nvidia/cublas/lib
+    networks:
+      - caddy
+    labels:
+      caddy: transcriber-mcp.your-domain.com
+      caddy.reverse_proxy: '{{upstreams 8080}}'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+
+networks:
+  caddy:
+    external: true
+
+volumes:
+  obsidian_vaults:
